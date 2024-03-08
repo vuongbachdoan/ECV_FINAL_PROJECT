@@ -12,11 +12,15 @@ import { RouteNotFoundError } from 'errors';
 
 import { attachPublicRoutes, attachPrivateRoutes } from './routes';
 
+const SERVER_PORT = process.env.SERVER_PORT || 4200
+
 const establishDatabaseConnection = async (): Promise<void> => {
   try {
     await createDatabaseConnection();
+    console.log('[SUCCESS] Connected to RDS');
   } catch (error) {
     console.log(error);
+    console.log('[FAIL] Failure when connect to RDS');
   }
 };
 
@@ -38,7 +42,8 @@ const initializeExpress = (): void => {
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
   app.use(handleError);
 
-  app.listen(process.env.PORT || 3000);
+  app.listen(process.env.SERVER_PORT || 4200);
+  console.log(`App listenting on port ${SERVER_PORT}`);
 };
 
 const initializeApp = async (): Promise<void> => {

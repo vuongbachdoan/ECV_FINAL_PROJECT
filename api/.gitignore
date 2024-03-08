@@ -1,0 +1,5 @@
+.env
+node_modules
+key.csv
+GitUser_codecommit_credentials.csv
+build
